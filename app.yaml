@@ -1,0 +1,57 @@
+
+application: pivotalcode
+version: 1
+runtime: python
+api_version: 1
+
+default_expiration: '365d'
+
+skip_files: |
+    ^(.*/)?(
+    (app\.yaml)|
+    (index\.yaml)|
+    (\..*)|
+    (.*\.pyc)|
+    (.*\.bat)|
+    (.*\.psd)|
+    (Thumbs.db)|
+    (.*\.svn/.*)|
+    (.*\.lnk)|
+    (_darcs/.*)|
+    (nbproject/.*)|
+    )$
+
+handlers:
+- url: /rpx.php
+  script: rpx.py
+
+- url: /logout
+  script: rpx.py
+
+- url: /remote_api
+  script: $PYTHON_LIB/google/appengine/ext/remote_api/handler.py
+  login: admin
+
+- url: /_ah/queue/deferred
+  script: $PYTHON_LIB/google/appengine/ext/deferred/handler.py
+  login: admin
+
+- url: /stats.*
+  script: $PYTHON_LIB/google/appengine/ext/appstats/ui.py
+
+- url: /media/admin
+  static_dir: common-apps/django/contrib/admin/media
+
+- url: /static
+  static_dir: static
+  expiration: 1d
+
+- url: /robots.txt
+  static_files: robots.txt
+  upload: robots.txt
+  secure: optional
+
+- url: /.*
+  script: main.py
+
+

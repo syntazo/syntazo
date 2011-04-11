@@ -1,0 +1,8 @@
+tr.inactive {
+	background-color: #E0E0E0;
+}
+table#buys > tbody > tr:first-child,
+table#sells > tbody > tr:first-child,
+table#transactions > tbody > tr:first-child {
+	text-align: center;
+}

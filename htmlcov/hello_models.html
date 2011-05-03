@@ -5,7 +5,7 @@
     
     
     <meta http-equiv='X-UA-Compatible' content='IE=emulateIE7' />
-    <title>Coverage for hello/models: 93%</title>
+    <title>Coverage for hello/models: 91%</title>
     <link rel='stylesheet' href='style.css' type='text/css'>
     <script type='text/javascript' src='jquery-1.3.2.min.js'></script>
     <script type='text/javascript' src='coverage_html.js'></script>
@@ -18,12 +18,12 @@
 <div id='header'>
     <div class='content'>
         <h1>Coverage for <b>hello/models</b> :
-            <span class='pc_cov'>93%</span>
+            <span class='pc_cov'>91%</span>
         </h1>
         <h2 class='stats'>
-            61 statements
-            <span class='run hide_run' onclick='toggle_lines(this, "run")'>57 run</span>
-            <span class='mis' onclick='toggle_lines(this, "mis")'>4 missing</span>
+            64 statements
+            <span class='run hide_run' onclick='toggle_lines(this, "run")'>58 run</span>
+            <span class='mis' onclick='toggle_lines(this, "mis")'>6 missing</span>
             <span class='exc' onclick='toggle_lines(this, "exc")'>0 excluded</span>
             
         </h2>
@@ -116,6 +116,11 @@
 <p id='n80' class='pln'><a href='#n80'>80</a></p>
 <p id='n81' class='stm run hide_run'><a href='#n81'>81</a></p>
 <p id='n82' class='stm run hide_run'><a href='#n82'>82</a></p>
+<p id='n83' class='pln'><a href='#n83'>83</a></p>
+<p id='n84' class='stm run hide_run'><a href='#n84'>84</a></p>
+<p id='n85' class='pln'><a href='#n85'>85</a></p>
+<p id='n86' class='stm mis'><a href='#n86'>86</a></p>
+<p id='n87' class='stm mis'><a href='#n87'>87</a></p>
                 
             </td>
             <td class='text' valign='top'>
@@ -201,6 +206,11 @@
 <p id='t80' class='pln'><span class='strut'>&nbsp;</span></p>
 <p id='t81' class='stm run hide_run'><span class='key'>class</span> <span class='nam'>Course</span><span class='op'>(</span><span class='nam'>db</span><span class='op'>.</span><span class='nam'>Model</span><span class='op'>)</span><span class='op'>:</span><span class='strut'>&nbsp;</span></p>
 <p id='t82' class='stm run hide_run'>&nbsp; &nbsp; <span class='nam'>name</span> <span class='op'>=</span> <span class='nam'>db</span><span class='op'>.</span><span class='nam'>StringProperty</span><span class='op'>(</span><span class='nam'>required</span><span class='op'>=</span><span class='nam'>True</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t83' class='pln'><span class='strut'>&nbsp;</span></p>
+<p id='t84' class='stm run hide_run'>&nbsp; &nbsp; <span class='op'>@</span><span class='nam'>staticmethod</span><span class='strut'>&nbsp;</span></p>
+<p id='t85' class='pln'>&nbsp; &nbsp; <span class='key'>def</span> <span class='nam'>add_course</span><span class='op'>(</span><span class='nam'>name</span><span class='op'>,</span> <span class='nam'>user</span><span class='op'>)</span><span class='op'>:</span><span class='strut'>&nbsp;</span></p>
+<p id='t86' class='stm mis'>&nbsp; &nbsp; &nbsp; &nbsp; <span class='nam'>newCourse</span> <span class='op'>=</span> <span class='nam'>Course</span><span class='op'>(</span><span class='nam'>name</span><span class='op'>=</span><span class='nam'>name</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t87' class='stm mis'>&nbsp; &nbsp; &nbsp; &nbsp; <span class='nam'>newCourse</span><span class='op'>.</span><span class='nam'>put</span><span class='op'>(</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
                 
             </td>
         </tr>

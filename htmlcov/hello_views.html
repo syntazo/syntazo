@@ -5,7 +5,7 @@
     
     
     <meta http-equiv='X-UA-Compatible' content='IE=emulateIE7' />
-    <title>Coverage for hello/views: 79%</title>
+    <title>Coverage for hello/views: 73%</title>
     <link rel='stylesheet' href='style.css' type='text/css'>
     <script type='text/javascript' src='jquery-1.3.2.min.js'></script>
     <script type='text/javascript' src='coverage_html.js'></script>
@@ -18,12 +18,12 @@
 <div id='header'>
     <div class='content'>
         <h1>Coverage for <b>hello/views</b> :
-            <span class='pc_cov'>79%</span>
+            <span class='pc_cov'>73%</span>
         </h1>
         <h2 class='stats'>
-            53 statements
-            <span class='run hide_run' onclick='toggle_lines(this, "run")'>42 run</span>
-            <span class='mis' onclick='toggle_lines(this, "mis")'>11 missing</span>
+            59 statements
+            <span class='run hide_run' onclick='toggle_lines(this, "run")'>43 run</span>
+            <span class='mis' onclick='toggle_lines(this, "mis")'>16 missing</span>
             <span class='exc' onclick='toggle_lines(this, "exc")'>0 excluded</span>
             
         </h2>
@@ -113,9 +113,9 @@
 <p id='n77' class='stm run hide_run'><a href='#n77'>77</a></p>
 <p id='n78' class='stm run hide_run'><a href='#n78'>78</a></p>
 <p id='n79' class='pln'><a href='#n79'>79</a></p>
-<p id='n80' class='stm run hide_run'><a href='#n80'>80</a></p>
-<p id='n81' class='stm mis'><a href='#n81'>81</a></p>
-<p id='n82' class='pln'><a href='#n82'>82</a></p>
+<p id='n80' class='pln'><a href='#n80'>80</a></p>
+<p id='n81' class='stm run hide_run'><a href='#n81'>81</a></p>
+<p id='n82' class='stm mis'><a href='#n82'>82</a></p>
 <p id='n83' class='pln'><a href='#n83'>83</a></p>
 <p id='n84' class='pln'><a href='#n84'>84</a></p>
 <p id='n85' class='pln'><a href='#n85'>85</a></p>
@@ -128,15 +128,27 @@
 <p id='n92' class='pln'><a href='#n92'>92</a></p>
 <p id='n93' class='pln'><a href='#n93'>93</a></p>
 <p id='n94' class='pln'><a href='#n94'>94</a></p>
-<p id='n95' class='stm run hide_run'><a href='#n95'>95</a></p>
+<p id='n95' class='pln'><a href='#n95'>95</a></p>
 <p id='n96' class='stm run hide_run'><a href='#n96'>96</a></p>
 <p id='n97' class='stm run hide_run'><a href='#n97'>97</a></p>
-<p id='n98' class='pln'><a href='#n98'>98</a></p>
+<p id='n98' class='stm run hide_run'><a href='#n98'>98</a></p>
 <p id='n99' class='pln'><a href='#n99'>99</a></p>
-<p id='n100' class='stm run hide_run'><a href='#n100'>100</a></p>
-<p id='n101' class='pln'><a href='#n101'>101</a></p>
+<p id='n100' class='pln'><a href='#n100'>100</a></p>
+<p id='n101' class='stm run hide_run'><a href='#n101'>101</a></p>
 <p id='n102' class='stm run hide_run'><a href='#n102'>102</a></p>
 <p id='n103' class='pln'><a href='#n103'>103</a></p>
+<p id='n104' class='stm run hide_run'><a href='#n104'>104</a></p>
+<p id='n105' class='pln'><a href='#n105'>105</a></p>
+<p id='n106' class='stm mis'><a href='#n106'>106</a></p>
+<p id='n107' class='stm mis'><a href='#n107'>107</a></p>
+<p id='n108' class='pln'><a href='#n108'>108</a></p>
+<p id='n109' class='pln'><a href='#n109'>109</a></p>
+<p id='n110' class='stm mis'><a href='#n110'>110</a></p>
+<p id='n111' class='stm mis'><a href='#n111'>111</a></p>
+<p id='n112' class='stm mis'><a href='#n112'>112</a></p>
+<p id='n113' class='pln'><a href='#n113'>113</a></p>
+<p id='n114' class='pln'><a href='#n114'>114</a></p>
+<p id='n115' class='pln'><a href='#n115'>115</a></p>
                 
             </td>
             <td class='text' valign='top'>
@@ -219,30 +231,42 @@
 <p id='t77' class='stm run hide_run'>&nbsp; &nbsp; <span class='nam'>logging</span><span class='op'>.</span><span class='nam'>warning</span><span class='op'>(</span><span class='str'>&#39;User not logined&#39;</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
 <p id='t78' class='stm run hide_run'>&nbsp; <span class='key'>return</span> <span class='nam'>user</span><span class='strut'>&nbsp;</span></p>
 <p id='t79' class='pln'><span class='strut'>&nbsp;</span></p>
-<p id='t80' class='stm run hide_run'><span class='key'>def</span> <span class='nam'>auth_error</span><span class='op'>(</span><span class='nam'>domain_url</span><span class='op'>)</span><span class='op'>:</span><span class='strut'>&nbsp;</span></p>
-<p id='t81' class='stm mis'>&nbsp; <span class='key'>return</span> <span class='nam'>http</span><span class='op'>.</span><span class='nam'>HttpResponse</span><span class='op'>(</span><span class='nam'>content</span> <span class='op'>=</span><span class='strut'>&nbsp;</span></p>
-<p id='t82' class='pln'>&nbsp; &nbsp; &nbsp; <span class='str'>&#39;&#39;&#39;&lt;html&gt;&lt;body&gt;</span><span class='strut'>&nbsp;</span></p>
-<p id='t83' class='pln'><span class='str'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; You are not logined! You can &lt;a class=&quot;rpxnow&quot; onclick=&quot;return false;&quot; href=&quot;https://pivotalexpert.rpxnow.com/openid/v2/signin?token_url=&#39;&#39;&#39;</span><span class='op'>+</span><span class='nam'>domain_url</span><span class='op'>+</span><span class='str'>&#39;&#39;&#39;%2Frpx.php&quot;&gt;sign in here&lt;/a&gt;!</span><span class='strut'>&nbsp;</span></p>
-<p id='t84' class='pln'><span class='str'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;script type=&quot;text/javascript&quot;&gt;</span><span class='strut'>&nbsp;</span></p>
-<p id='t85' class='pln'><span class='str'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; var rpxJsHost = ((&quot;https:&quot; == document.location.protocol) ? &quot;https://&quot; : &quot;http://static.&quot;);</span><span class='strut'>&nbsp;</span></p>
-<p id='t86' class='pln'><span class='str'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; document.write(unescape(&quot;%3Cscript src=&#39;&quot; + rpxJsHost + &quot;rpxnow.com/js/lib/rpx.js&#39; type=&#39;text/javascript&#39;%3E%3C/script%3E&quot;));</span><span class='strut'>&nbsp;</span></p>
-<p id='t87' class='pln'><span class='str'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/script&gt;</span><span class='strut'>&nbsp;</span></p>
-<p id='t88' class='pln'><span class='str'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;script type=&quot;text/javascript&quot;&gt;</span><span class='strut'>&nbsp;</span></p>
-<p id='t89' class='pln'><span class='str'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; RPXNOW.overlay = true;</span><span class='strut'>&nbsp;</span></p>
-<p id='t90' class='pln'><span class='str'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; RPXNOW.language_preference = &#39;en&#39;;</span><span class='strut'>&nbsp;</span></p>
-<p id='t91' class='pln'><span class='str'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/script&gt;</span><span class='strut'>&nbsp;</span></p>
-<p id='t92' class='pln'><span class='str'>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &lt;/body&gt;</span><span class='strut'>&nbsp;</span></p>
-<p id='t93' class='pln'><span class='str'>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &lt;/html&gt;&#39;&#39;&#39;</span><span class='op'>,</span> <span class='nam'>status</span> <span class='op'>=</span> <span class='num'>401</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
-<p id='t94' class='pln'><span class='strut'>&nbsp;</span></p>
-<p id='t95' class='stm run hide_run'><span class='key'>def</span> <span class='nam'>index</span><span class='op'>(</span><span class='nam'>request</span><span class='op'>)</span><span class='op'>:</span><span class='strut'>&nbsp;</span></p>
-<p id='t96' class='stm run hide_run'>&nbsp; <span class='nam'>logging</span><span class='op'>.</span><span class='nam'>info</span><span class='op'>(</span><span class='str'>&#39;cookies: &#39;</span><span class='op'>+</span><span class='nam'>str</span><span class='op'>(</span><span class='nam'>request</span><span class='op'>.</span><span class='nam'>COOKIES</span><span class='op'>)</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
-<p id='t97' class='stm run hide_run'>&nbsp; <span class='nam'>user</span> <span class='op'>=</span> <span class='nam'>get_user</span><span class='op'>(</span><span class='nam'>request</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
-<p id='t98' class='pln'>&nbsp; <span class='com'>#if not user:</span><span class='strut'>&nbsp;</span></p>
-<p id='t99' class='pln'>&nbsp; <span class='com'>#&nbsp; return auth_error(common.getHostURI(request))</span><span class='strut'>&nbsp;</span></p>
-<p id='t100' class='stm run hide_run'>&nbsp; <span class='nam'>courses</span> <span class='op'>=</span> <span class='nam'>models</span><span class='op'>.</span><span class='nam'>Course</span><span class='op'>.</span><span class='nam'>all</span><span class='op'>(</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
-<p id='t101' class='pln'><span class='strut'>&nbsp;</span></p>
+<p id='t80' class='pln'><span class='com'>#Move this to a template. </span><span class='strut'>&nbsp;</span></p>
+<p id='t81' class='stm run hide_run'><span class='key'>def</span> <span class='nam'>auth_error</span><span class='op'>(</span><span class='nam'>domain_url</span><span class='op'>)</span><span class='op'>:</span><span class='strut'>&nbsp;</span></p>
+<p id='t82' class='stm mis'>&nbsp; <span class='key'>return</span> <span class='nam'>http</span><span class='op'>.</span><span class='nam'>HttpResponse</span><span class='op'>(</span><span class='nam'>content</span> <span class='op'>=</span><span class='strut'>&nbsp;</span></p>
+<p id='t83' class='pln'>&nbsp; &nbsp; &nbsp; <span class='str'>&#39;&#39;&#39;&lt;html&gt;&lt;body&gt;</span><span class='strut'>&nbsp;</span></p>
+<p id='t84' class='pln'><span class='str'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; You are not logined! You can &lt;a class=&quot;rpxnow&quot; onclick=&quot;return false;&quot; href=&quot;https://pivotalexpert.rpxnow.com/openid/v2/signin?token_url=&#39;&#39;&#39;</span><span class='op'>+</span><span class='nam'>domain_url</span><span class='op'>+</span><span class='str'>&#39;&#39;&#39;%2Frpx.php&quot;&gt;sign in here&lt;/a&gt;!</span><span class='strut'>&nbsp;</span></p>
+<p id='t85' class='pln'><span class='str'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;script type=&quot;text/javascript&quot;&gt;</span><span class='strut'>&nbsp;</span></p>
+<p id='t86' class='pln'><span class='str'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; var rpxJsHost = ((&quot;https:&quot; == document.location.protocol) ? &quot;https://&quot; : &quot;http://static.&quot;);</span><span class='strut'>&nbsp;</span></p>
+<p id='t87' class='pln'><span class='str'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; document.write(unescape(&quot;%3Cscript src=&#39;&quot; + rpxJsHost + &quot;rpxnow.com/js/lib/rpx.js&#39; type=&#39;text/javascript&#39;%3E%3C/script%3E&quot;));</span><span class='strut'>&nbsp;</span></p>
+<p id='t88' class='pln'><span class='str'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/script&gt;</span><span class='strut'>&nbsp;</span></p>
+<p id='t89' class='pln'><span class='str'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;script type=&quot;text/javascript&quot;&gt;</span><span class='strut'>&nbsp;</span></p>
+<p id='t90' class='pln'><span class='str'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; RPXNOW.overlay = true;</span><span class='strut'>&nbsp;</span></p>
+<p id='t91' class='pln'><span class='str'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; RPXNOW.language_preference = &#39;en&#39;;</span><span class='strut'>&nbsp;</span></p>
+<p id='t92' class='pln'><span class='str'>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &lt;/script&gt;</span><span class='strut'>&nbsp;</span></p>
+<p id='t93' class='pln'><span class='str'>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &lt;/body&gt;</span><span class='strut'>&nbsp;</span></p>
+<p id='t94' class='pln'><span class='str'>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &lt;/html&gt;&#39;&#39;&#39;</span><span class='op'>,</span> <span class='nam'>status</span> <span class='op'>=</span> <span class='num'>401</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t95' class='pln'><span class='strut'>&nbsp;</span></p>
+<p id='t96' class='stm run hide_run'><span class='key'>def</span> <span class='nam'>index</span><span class='op'>(</span><span class='nam'>request</span><span class='op'>)</span><span class='op'>:</span><span class='strut'>&nbsp;</span></p>
+<p id='t97' class='stm run hide_run'>&nbsp; <span class='nam'>logging</span><span class='op'>.</span><span class='nam'>info</span><span class='op'>(</span><span class='str'>&#39;cookies: &#39;</span><span class='op'>+</span><span class='nam'>str</span><span class='op'>(</span><span class='nam'>request</span><span class='op'>.</span><span class='nam'>COOKIES</span><span class='op'>)</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t98' class='stm run hide_run'>&nbsp; <span class='nam'>user</span> <span class='op'>=</span> <span class='nam'>get_user</span><span class='op'>(</span><span class='nam'>request</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t99' class='pln'>&nbsp; <span class='com'>#if not user:</span><span class='strut'>&nbsp;</span></p>
+<p id='t100' class='pln'>&nbsp; <span class='com'>#&nbsp; return auth_error(common.getHostURI(request))</span><span class='strut'>&nbsp;</span></p>
+<p id='t101' class='stm run hide_run'>&nbsp; <span class='nam'>courses</span> <span class='op'>=</span> <span class='nam'>models</span><span class='op'>.</span><span class='nam'>Course</span><span class='op'>.</span><span class='nam'>all</span><span class='op'>(</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
 <p id='t102' class='stm run hide_run'>&nbsp; <span class='key'>return</span> <span class='nam'>respond</span><span class='op'>(</span><span class='nam'>request</span><span class='op'>,</span> <span class='nam'>user</span><span class='op'>,</span> <span class='str'>&#39;index&#39;</span><span class='op'>,</span> <span class='op'>{</span><span class='str'>&#39;next&#39;</span><span class='op'>:</span> <span class='str'>&#39;/&#39;</span><span class='op'>,</span> <span class='str'>&#39;courses&#39;</span><span class='op'>:</span><span class='nam'>courses</span><span class='op'>}</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
 <p id='t103' class='pln'><span class='strut'>&nbsp;</span></p>
+<p id='t104' class='stm run hide_run'><span class='key'>def</span> <span class='nam'>add_course</span><span class='op'>(</span><span class='nam'>request</span><span class='op'>)</span><span class='op'>:</span><span class='strut'>&nbsp;</span></p>
+<p id='t105' class='pln'>&nbsp; <span class='com'>#Fetch name parameter from GET request and create new course as an example</span><span class='strut'>&nbsp;</span></p>
+<p id='t106' class='stm mis'>&nbsp; <span class='nam'>logging</span><span class='op'>.</span><span class='nam'>info</span><span class='op'>(</span><span class='str'>&#39;Adding a course&#39;</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t107' class='stm mis'>&nbsp; <span class='nam'>user</span> <span class='op'>=</span> <span class='nam'>get_user</span><span class='op'>(</span><span class='nam'>request</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t108' class='pln'>&nbsp; <span class='com'>#if not user:</span><span class='strut'>&nbsp;</span></p>
+<p id='t109' class='pln'>&nbsp; <span class='com'>#&nbsp; return auth_error(common.getHostURI(request))</span><span class='strut'>&nbsp;</span></p>
+<p id='t110' class='stm mis'>&nbsp; <span class='nam'>models</span><span class='op'>.</span><span class='nam'>Course</span><span class='op'>.</span><span class='nam'>add_course</span><span class='op'>(</span><span class='nam'>name</span><span class='op'>=</span><span class='str'>&#39;New Course&#39;</span><span class='op'>,</span> <span class='nam'>user</span><span class='op'>=</span><span class='nam'>user</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t111' class='stm mis'>&nbsp; <span class='nam'>courses</span> <span class='op'>=</span> <span class='nam'>models</span><span class='op'>.</span><span class='nam'>Course</span><span class='op'>.</span><span class='nam'>all</span><span class='op'>(</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t112' class='stm mis'>&nbsp; <span class='key'>return</span> <span class='nam'>respond</span><span class='op'>(</span><span class='nam'>request</span><span class='op'>,</span> <span class='nam'>user</span><span class='op'>,</span> <span class='str'>&#39;index&#39;</span><span class='op'>,</span> <span class='op'>{</span><span class='str'>&#39;next&#39;</span><span class='op'>:</span> <span class='str'>&#39;/&#39;</span><span class='op'>,</span> <span class='str'>&#39;courses&#39;</span><span class='op'>:</span><span class='nam'>courses</span><span class='op'>}</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t113' class='pln'><span class='strut'>&nbsp;</span></p>
+<p id='t114' class='pln'><span class='strut'>&nbsp;</span></p>
+<p id='t115' class='pln'><span class='strut'>&nbsp;</span></p>
                 
             </td>
         </tr>

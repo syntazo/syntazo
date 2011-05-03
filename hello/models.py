@@ -81,3 +81,8 @@ class Session(db.Model):
 class Course(db.Model):
     name = db.StringProperty(required=True)
     
+    @staticmethod
+    def add_course(name, user):
+        newCourse = Course(name=name)
+        newCourse.put()
+    

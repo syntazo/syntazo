@@ -77,6 +77,7 @@ def get_user(request):
     logging.warning('User not logined')
   return user
 
+#Move this to a template. 
 def auth_error(domain_url):
   return http.HttpResponse(content = 
       '''<html><body>
@@ -98,6 +99,17 @@ def index(request):
   #if not user:
   #  return auth_error(common.getHostURI(request))
   courses = models.Course.all()
-  
   return respond(request, user, 'index', {'next': '/', 'courses':courses})
+  
+def add_course(request):
+  #Fetch name parameter from GET request and create new course as an example
+  logging.info('Adding a course')
+  user = get_user(request)
+  #if not user:
+  #  return auth_error(common.getHostURI(request))
+  models.Course.add_course(name='New Course', user=user)
+  courses = models.Course.all()
+  return respond(request, user, 'index', {'next': '/', 'courses':courses})
+  
+
 

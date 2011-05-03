@@ -16,22 +16,20 @@ from hello import models
 #from xxx import models
 #from xxx import views
 
-class Test_User(unittest.TestCase):
+class Test_Models(unittest.TestCase):
 
     def setUp(self):
         pass
     def tearDown(self):
         for x in models.User.all(): x.delete()
         
-       
-    def testUserCreation(self):  
+    def test_user_creation(self):  
         self.assertEqual(1, 1)
         user = models.User(user_id ='Bob').save()
         results = models.User.all()
         self.assertEqual(results.count(),1)
 
-    def testUserGetCurrentUser(self):
-    
+    def test_get_current_user(self):
     	userKey = models.User(user_id ='Bob').save()
     	user = models.User.get(userKey)
     	result = user.get_current_user(user_id=None, nickname='Bob', email='Bob@test.com') 
@@ -46,13 +44,13 @@ class Test_User(unittest.TestCase):
         self.assertEqual('John', result.nickname)
     
     #This can be changed to test as static
-    def testUserLogin(self):
+    def test_user_login(self):
         userKey = models.User(user_id ='Bob').save()
     	user = models.User.get(userKey)
     	result = models.User.login(user.user_id)
     	self.assertEqual(user.nickname, result.nickname)
     	
-    def testUserIsCurrentUserAdmin(self):
+    def test_user_is_current_user_admin(self):
     	self.assertEqual(False, models.User.is_current_user_admin())
     	    
     def test_create_logout_url(self): 
@@ -69,12 +67,10 @@ class Test_User(unittest.TestCase):
         result = models.Session.get_session(sessionID)
         self.assertEqual(sessionID, result.key().id())
         
-        
         models.Session.delete_session_for_user('99')
         self.assertEqual(0, models.Session.all().count())      
         
-    
-    def testCourseCreation(self):  
+    def test_course_creation(self):  
         results = models.Course.all()
         self.assertEqual(results.count(),0)  
         user = models.Course(name ='TestCourse').save()

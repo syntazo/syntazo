@@ -77,3 +77,7 @@ class Session(db.Model):
         except Exception, e:
             logging.error('Error while getting session: '+str(e))
         return None
+
+class Course(db.Model):
+    name = db.StringProperty(required=True)
+    

@@ -97,6 +97,7 @@ def index(request):
   user = get_user(request)
   #if not user:
   #  return auth_error(common.getHostURI(request))
+  courses = models.Course.all()
   
-  return respond(request, user, 'index', {'next': '/'})
+  return respond(request, user, 'index', {'next': '/', 'courses':courses})
 

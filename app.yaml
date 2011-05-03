@@ -42,6 +42,18 @@ handlers:
 - url: /media/admin
   static_dir: common-apps/django/contrib/admin/media
 
+- url: /test.*
+  script: gaeunit/gaeunit.py
+
+- url: /console/static
+  static_dir: console/app/view/static
+  expiration: 1d  # Changes more often
+
+- url: /console.*
+  script: console/app/console.py
+  login: admin
+
+
 - url: /static
   static_dir: static
   expiration: 1d

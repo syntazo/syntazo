@@ -95,8 +95,8 @@ def auth_error(domain_url):
 def index(request):
   logging.info('cookies: '+str(request.COOKIES))
   user = get_user(request)
-  if not user:
-    return auth_error(common.getHostURI(request))
+  #if not user:
+  #  return auth_error(common.getHostURI(request))
   
   return respond(request, user, 'index', {'next': '/'})
 

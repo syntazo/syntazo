@@ -25,6 +25,7 @@ from django.utils.http import urlencode as django_urlencode
 
 # Local imports
 import models
+from forms import CourseForm, AppForm
 import base64
 from myutil import common
 
@@ -99,7 +100,8 @@ def index(request):
   #if not user:
   #  return auth_error(common.getHostURI(request))
   courses = models.Course.all()
-  return respond(request, user, 'index', {'next': '/', 'courses':courses})
+  apps = models.App.all()
+  return respond(request, user, 'index', {'next': '/', 'courses':courses, 'apps':apps})
   
 def add_course(request):
   #Fetch name parameter from GET request and create new course as an example
@@ -110,6 +112,68 @@ def add_course(request):
   models.Course.add_course(name='New Course', user=user)
   courses = models.Course.all()
   return respond(request, user, 'index', {'next': '/', 'courses':courses})
-  
 
+def add_app(request):
+  #Fetch name parameter from GET request and create new course as an example
+  logging.info('Adding an app')
+  user = get_user(request)
+  #if not user:
+  #  return auth_error(common.getHostURI(request))
+  models.App.add_app(name='New App', user=user, url='http://www.google.com')
+  courses = models.Course.all()
+  apps = models.App.all()
+  return respond(request, user, 'index', {'next': '/', 'courses':courses, 'apps':apps})
+  
+def courses(request):
+    courses = models.Course.all()
+
+    #Update the view to list supported and unsupported interfaces.
+    return respond(request,None,'courses', {'courses':courses})
+  
+def edit_course(request, course_id=None):
+  logging.info("In edit course")
+  #currentPlayer = models.Player.get_the_current_player()
+  
+  #if currentPlayer is None:
+  #  return http.HttpResponseForbidden('You must be an signed in to create/edit an interface.')
+
+  course = None
+  creatingNew = False
+  
+  if not course_id:
+    creatingNew = True
+    
+  else:
+    course = models.Course.get_by_id(int(course_id))
+    if course is None:
+      return http.HttpResponseNotFound('No such course.') 
+    #if interface.editor.key().id() != currentPlayer.key().id() and not models.Player.is_current_player_admin():
+    #  return http.HttpResponseForbidden('You can only edit your own interfaces.')
+
+  form = CourseForm(data=request.POST or None, instance=course)
+
+  if not request.POST:
+    return respond(request, None, 'edit_course', {'form': form, 'course': course, 'creatingNew': creatingNew})
+  
+  errors = form.errors
+  if not errors:
+    try:
+        course = form.save(commit=False)
+    except ValueError, err:
+        errors['__all__'] = unicode(err)
+    if errors:
+      return respond(request, None, 'edit_course', {'form': form, 'course': course, 'creatingNew': creatingNew})
+  else:
+      logging.info("There were form.errors. %s", errors)
+
+  if creatingNew:
+    pass
+    #path.owner = user
+    #interface.editor = currentPlayer
+    #interface.owner = 'scboesch'
+    #interface.singpathSupported = False
+
+  course.put()
+  return http.HttpResponseRedirect('/')
+  
 

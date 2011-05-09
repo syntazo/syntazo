@@ -1,0 +1,15 @@
+{%extends "base.html"%}
+{%block body%}
+{% if creatingNew %}
+	<h3>New course</h3>
+{% else %}
+	<h3>Edit course</h3>
+{% endif %}
+  <form action="." method="post">
+  <table>
+    {{ form.as_table  }}
+  </table>
+  <input type="submit" value="Save" />
+</form>
+
+{%endblock%}

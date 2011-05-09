@@ -13,7 +13,9 @@
       You are not signed in. <a class="rpxnow" onclick="return false;"
 href="https://pivotalexpert1.rpxnow.com/openid/v2/signin?token_url=http%3A%2F%2Fpivotalexpert1.appspot.com%2Frpx.php"> Sign In </a>
       <br>
-
+     {% endif %}
+         </div>
+         
 <table class="players" cellspacing="0" width="900">
   <tr style="color:#00ce1d;font-weight:bold;text-align:center">
     <td>Course</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td></td>
@@ -21,11 +23,13 @@ href="https://pivotalexpert1.rpxnow.com/openid/v2/signin?token_url=http%3A%2F%2F
 {% for course in courses %}
 
   <tr>
-  	<td> {{course.name }}</a> </td>
+  	<td> {{course.name }} </td>
    
     <td align="center">
+         {{course.key.id}}
     </td>
 	<td align="center">
+	    <a href="/edit_course/{{course.key.id}}/"> Edit </a>
     </td>
 	<td align="center">
     </td>
@@ -38,12 +42,40 @@ href="https://pivotalexpert1.rpxnow.com/openid/v2/signin?token_url=http%3A%2F%2F
 {% endfor %}
 
 </table>
-      {% endif %}
-      
-    </div>
-    
 <br>
 <a class="addCourse" href="/add_course"> Add a course </a>
+ 
+      
+<table class="apps" cellspacing="0" width="900">
+  <tr style="color:#00ce1d;font-weight:bold;text-align:center">
+    <td>App</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td></td>
+  </tr>
+{% for app in apps %}
+
+  <tr>
+  	<td> {{app.name }} </td>
+   
+    <td align="center">
+         {{app.key.id}}
+    </td>
+	<td align="center">
+	    <a href="/edit_app/{{app.key.id}}/"> Edit </a>
+    </td>
+	<td align="center">
+    </td>
+    <td align="center">
+    </td>
+    <td align="center">
+    </td>
+
+  </tr>
+{% endfor %}
+
+</table>
+ 
+    
+<br>
+<a class="addApp" href="/add_app"> Add an app </a>
 
     <div id="footer" style="height:50px; text-align:center;">
       <em>(Powered by Python 2.5 and Google App Engine)</em>

@@ -85,4 +85,13 @@ class Course(db.Model):
     def add_course(name, user):
         newCourse = Course(name=name)
         newCourse.put()
+        
+class App(db.Model):
+    name = db.StringProperty(required=True)
+    url = db.StringProperty(required=True)
+    
+    @staticmethod
+    def add_app(name, user, url):
+        newApp = App(name=name, url=url)
+        newApp.put()
     

@@ -10,6 +10,8 @@ class CourseForm(djangoforms.ModelForm):
      #exclude = ('interface', 'editor', 'isGamePath')
      
 class AppForm(djangoforms.ModelForm):
-   class Meta:
-     model = models.App
+    name = forms.CharField(widget=forms.TextInput(attrs={'size': '80'}))
+    url = forms.CharField(widget=forms.TextInput(attrs={'size': '80'}))
+    class Meta:
+        model = models.App
      #exclude = ('interface', 'editor', 'isGamePath')

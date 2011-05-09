@@ -1,5 +1,8 @@
 # Python imports
 import logging
+import datetime
+import urllib
+import sys
 
 # AppEngine imports
 #from google.appengine.api import users
@@ -110,8 +113,9 @@ def add_course(request):
   #if not user:
   #  return auth_error(common.getHostURI(request))
   models.Course.add_course(name='New Course', user=user)
-  courses = models.Course.all()
-  return respond(request, user, 'index', {'next': '/', 'courses':courses})
+  return http.HttpResponseRedirect('/')
+  # courses = models.Course.all()
+  # return respond(request, user, 'index', {'next': '/', 'courses':courses})
 
 def add_app(request):
   #Fetch name parameter from GET request and create new course as an example
@@ -120,60 +124,158 @@ def add_app(request):
   #if not user:
   #  return auth_error(common.getHostURI(request))
   models.App.add_app(name='New App', user=user, url='http://www.google.com')
-  courses = models.Course.all()
-  apps = models.App.all()
-  return respond(request, user, 'index', {'next': '/', 'courses':courses, 'apps':apps})
-  
-def courses(request):
-    courses = models.Course.all()
+  return http.HttpResponseRedirect('/')
+  #return respond(request, user, 'index', {'next': '/', 'courses':courses, 'apps':apps})
 
+def fetch_from_url(url, jsonRequestDict):
+    logging.info('Checking an app')
+       
+    requestJSON = json.dumps(jsonRequestDict)
+    params = urllib.urlencode({'jsonrequest': requestJSON})
+    
+    jsonresponse = ''
+    request_time = datetime.datetime.now()
+    response_time = datetime.datetime.now()
+    logging.warn('fetching from '+url)
+    try:
+        deadline = 5
+        result = urlfetch.fetch(url=url,
+                                payload=params,
+                                method=urlfetch.POST,
+                                deadline=deadline,
+                                headers={'Content-Type': 'application/x-www-form-urlencoded'})
+
+        response_time = datetime.datetime.now()
+        delta = response_time - request_time
+        microseconds = delta.seconds * 1000000 + delta.microseconds
+        jsonresponse = result.content
+        logging.info('url returned json '+jsonresponse)
+        return json.loads(jsonresponse)
+    
+    except:
+        e = sys.exc_info()[1]
+        logging.error('Problem parsing '+str(e))
+        return {'error': 'Problem parsing passed in json.'+str(e)}
+
+def urls_head_to_head(playerX, playerO, referee,log=False):
+        player = {'X':playerX, 'O': playerO}
+        #player = {'X':'http://localhost:8080/tictactoe', 'O': 'http://localhost:8080/tictactoe'}
+        #referee = 'http://localhost:8080/tictactoe'
+        
+        logging.warn('***************')      
+        result = fetch_from_url(referee+'/get_new_board', {})
+        logging.warn(result)
+    
+        
+        board = result['board']
+              
+        moves = []
+        for i in range(9):
+            if log==True: 
+                logging.info(board)
+    
+            logging.warn('@@@@@@@@@@@@@@@@@')        
+            result = fetch_from_url(referee+'/game_status', {'board':board})
+            logging.warn(result)
+            turn = result['turn']
+            
+            result = fetch_from_url(player[turn]+'/get_next_move', {'board':board})
+            logging.warn('@@@@@@@@@@@@@@@@@')
+            logging.warn(result)
+            
+            move = result['move']
+            moves.append(move)
+
+            result = fetch_from_url(referee+'/game_status', {'board':move})
+            logging.warn('************')
+            logging.warn(result)
+
+            status = result
+            if status['status']!='PLAYING':
+              #print '\n'+status['status']
+              return status['status']
+            board = move
+            
+        return 'No result'
+ 
+def run_tournament(request):
+    apps = models.App.all()
+    referee = 'http://localhost:8080/tictactoe'
+    players = ['http://localhost:8080/tictactoe', 'http://localhost:8080/tictactoe','http://localhost:8080/tictactoe', 'http://localhost:8080/tictactoe']
+    
+    #players = [TicTacToe(), CenterGrabTicTacToe(), RandomTicTacToe(),CenterGrabRandomTicTacToe(),BottomUpTicTacToe(), HunterTicTacToe()]
+        
+    points = {}
+    losses = {}
+    logging.warn('***************** len(players)=%s',len(players))
+    for i in range(len(players)): 
+        points[i]=0
+        losses[i]=0
+        
+    for x in range(len(players)):
+        for y in range(len(players)):
+            if x!=y:
+                #result = self.head_to_head(players[x], players[y], TicTacToe())
+                result = urls_head_to_head(players[x], players[y], referee)
+                if 'X' in result: 
+                    points[x]+=1
+                    losses[y]+=1
+                elif 'O' in result: 
+                    points[y]+=1
+                    losses[x]+=1 
+                else:
+                    points[x]+=0.5
+                    points[y]+=0.5
+        
+        #print '\n'
+        #for k in points: 
+        #  print k, 'scored', points[k], 'points', losses[k],'losses',players[k].get_name()
+    return http.HttpResponse(json.dumps(points))             
     #Update the view to list supported and unsupported interfaces.
-    return respond(request,None,'courses', {'courses':courses})
-  
-def edit_course(request, course_id=None):
-  logging.info("In edit course")
-  #currentPlayer = models.Player.get_the_current_player()
-  
-  #if currentPlayer is None:
-  #  return http.HttpResponseForbidden('You must be an signed in to create/edit an interface.')
+    #return respond(request,None,'tournamentresult', {'results':results})
 
-  course = None
+def edit_app(request, id=None):
+    return edit_entity(request, id, c = models.App, useForm = AppForm)
+
+def edit_course(request, id=None):
+    return edit_entity(request, id, c = models.Course, useForm = CourseForm)
+
+def edit_entity(request, id=None, c = models.Course, useForm = CourseForm):
+ 
+  entity = None
+  if id: 
+      id = int(id)
+  
+  entity = None
   creatingNew = False
   
-  if not course_id:
+  if not id:
     creatingNew = True
     
   else:
-    course = models.Course.get_by_id(int(course_id))
-    if course is None:
-      return http.HttpResponseNotFound('No such course.') 
-    #if interface.editor.key().id() != currentPlayer.key().id() and not models.Player.is_current_player_admin():
-    #  return http.HttpResponseForbidden('You can only edit your own interfaces.')
-
-  form = CourseForm(data=request.POST or None, instance=course)
+    entity = c.get_by_id(int(id))
+    if entity is None:
+      return http.HttpResponseNotFound('No such entity.') 
+ 
+  form = useForm(data=request.POST or None, instance=entity)
 
   if not request.POST:
-    return respond(request, None, 'edit_course', {'form': form, 'course': course, 'creatingNew': creatingNew})
+    return respond(request, None, 'edit_entity', {'form': form, 'entity': entity, 'creatingNew': creatingNew})
   
   errors = form.errors
   if not errors:
     try:
-        course = form.save(commit=False)
+        entity = form.save(commit=False)
     except ValueError, err:
         errors['__all__'] = unicode(err)
     if errors:
-      return respond(request, None, 'edit_course', {'form': form, 'course': course, 'creatingNew': creatingNew})
+      return respond(request, None, 'edit_entity', {'form': form, 'entity': entity, 'creatingNew': creatingNew})
   else:
       logging.info("There were form.errors. %s", errors)
 
   if creatingNew:
     pass
-    #path.owner = user
     #interface.editor = currentPlayer
-    #interface.owner = 'scboesch'
-    #interface.singpathSupported = False
-
-  course.put()
+ 
+  entity.put()
   return http.HttpResponseRedirect('/')
-  
-

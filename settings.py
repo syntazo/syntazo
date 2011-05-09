@@ -107,6 +107,7 @@ INSTALLED_APPS = (
      'hello',
      'gaeunit',
      'myutil',
+     'tictactoe'
 )
 
 AUTHENTICATION_BACKENDS = ('rpx.backends.RpxBackend',

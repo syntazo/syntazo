@@ -15,70 +15,17 @@ href="https://pivotalexpert1.rpxnow.com/openid/v2/signin?token_url=http%3A%2F%2F
       <br>
      {% endif %}
          </div>
-         
-<table class="players" cellspacing="0" width="900">
-  <tr style="color:#00ce1d;font-weight:bold;text-align:center">
-    <td>Course</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td></td>
-  </tr>
-{% for course in courses %}
-
-  <tr>
-  	<td> {{course.name }} </td>
-   
-    <td align="center">
-
-    </td>
-	<td align="center">
-	    <a href="/edit_course/{{course.key.id}}/"> Edit </a>
-    </td>
-	<td align="center">
-	    {{course.key.id}}
-    </td>
-    <td align="center">
-    </td>
-    <td align="center">
-    </td>
-
-  </tr>
-{% endfor %}
-
-</table>
-<br>
-<a class="addCourse" href="/add_course"> Add a course </a>
  
-      
-<table class="apps" cellspacing="0" width="900">
-  <tr style="color:#00ce1d;font-weight:bold;text-align:center">
-    <td>App</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td></td>
-  </tr>
-{% for app in apps %}
-
-  <tr>
-  	<td> {{app.name }} </td>
-   
-    <td align="center">
-         {{app.url}}
-    </td>
-	<td align="center">
-	    <a href="/edit_app/{{app.key.id}}/"> Edit </a>
-    </td>
-	<td align="center">
-	    {{app.key.id}}
-    </td>
-    <td align="center">
-        <a href="/check_app/{{app.key.id}}/"> Check </a>
-    </td>
-    <td align="center">
-    </td>
-
-  </tr>
-{% endfor %}
-
-</table>
+ <br>
+ This tictactoe app support these urls <br>
+ <a href="/get_supported_games"> Get Supported Games </a> <br>
+ TicTacToe <a href="tictactoe/get_new_board"> Get New Board </a> <br>
+ TicTacToe <a href="tictactoe/is_board_valid"> Is Board Valid </a> For testing ?jsonrequest={"board":"XO*\n***\n***"} <br>
+ TicTacToe <a href="tictactoe/game_status"> Game Status </a> For testing ?jsonrequest={"board":"XO*\n***\n***"} <br>
+ TicTacToe <a href="tictactoe/get_next_move"> Get Next Move </a> For testing ?jsonrequest={"board":"XO*\n***\n***"} <br>
  
-    
+ TicTacToe <a href="tictactoe/is_move_valid"> Is Move Valid </a> For testing ?jsonrequest={"board":"XO*\n***\n***","move":"XOX\n***\n***"}  <br>      
 <br>
-<a class="addApp" href="/add_app"> Add an app </a>
 
     <div id="footer" style="height:50px; text-align:center;">
       <em>(Powered by Python 2.5 and Google App Engine)</em>

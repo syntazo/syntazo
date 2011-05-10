@@ -124,7 +124,7 @@ def add_app(request):
   user = get_user(request)
   #if not user:
   #  return auth_error(common.getHostURI(request))
-  models.App.add_app(name='New App', user=user, url='http://www.google.com')
+  models.App.add_app(name='New Game App', user=user, url='http://deli.appspot.com/tictactoe')
   return http.HttpResponseRedirect('/')
   #return respond(request, user, 'index', {'next': '/', 'courses':courses, 'apps':apps})
   
@@ -249,8 +249,18 @@ def live_run_tournament_heat(request, id=None):
     
     #return http.HttpResponseNotFound('Will process tournmanet heat with id '+str(id))
  
-    referee = 'http://localhost:8080/tictactoe'
-    players = ['http://localhost:8080/tictactoe', 'http://localhost:8080/tictactoe','http://localhost:8080/tictactoe', 'http://localhost:8080/tictactoe']
+    #referee = 'http://localhost:8080/tictactoe'
+    #players = ['http://localhost:8080/tictactoe', 'http://localhost:8080/tictactoe','http://localhost:8080/tictactoe', 'http://localhost:8080/tictactoe']
+    
+    apps = models.App.all()
+    players = []
+    for app in apps: 
+        players.append(app.url)
+    
+    if len(players)<2: 
+        return http.HttpResponseNotFound('Less than 2 apps registered.') 
+    
+    referee = players[0]
     
     #players = [TicTacToe(), CenterGrabTicTacToe(), RandomTicTacToe(),CenterGrabRandomTicTacToe(),BottomUpTicTacToe(), HunterTicTacToe()]
         

@@ -39,10 +39,12 @@ href="https://pivotalexpert1.rpxnow.com/openid/v2/signin?token_url=http%3A%2F%2F
         <a href="/run_tournament_heat/{{th.key.id}}/"> Run tournament heat </a>
     </td>
     <td align="center">
+        {% if th.finished %}
         <a href="/view_heat_result/{{th.key.id}}/"> View heat result </a>
+        {% endif %}
+        
     </td>
     <td align="center">
-        {{th.jsonResult}}
     </td>
 
   </tr>
@@ -118,11 +120,6 @@ href="https://pivotalexpert1.rpxnow.com/openid/v2/signin?token_url=http%3A%2F%2F
 <a class="addCourse" href="/add_course"> Add a course </a>
  
 
-
-
-    <div id="footer" style="height:50px; text-align:center;">
-      <em>(Powered by Python 2.5 and Google App Engine)</em>
-    </div>
     <script type="text/javascript">
       var rpxJsHost = (("https:" == document.location.protocol) ? "https://" : "http://static.");
       document.write(unescape("%3Cscript src='" + rpxJsHost +

@@ -18,4 +18,6 @@ urlpatterns = patterns('hello.views',
   #(r'^run_tournament', 'run_tournament'),
   (r'^run_tournament_heat/(?P<id>\d+)', 'run_tournament_heat'),
   (r'^live_run_tournament_heat/(?P<id>\d+)', 'live_run_tournament_heat'),
+  (r'^view_heat_result/(?P<id>\d+)', 'view_heat_result'),
+  (r'^check_app/(?P<id>\d+)', 'check_app'),
 )

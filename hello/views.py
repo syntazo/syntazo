@@ -144,8 +144,98 @@ def edit_course(request, id=None):
 def edit_tournament_heat(request, id=None):
     return edit_entity(request, id, c = models.TournamentHeat, useForm = TournamentHeatForm)
 
+def view_heat_result(request, id=None):
+    tournamentHeat = None
+    if not id:
+        logging.info('Please pass in a tournament heat ID')
+        return http.HttpResponseNotFound('No tournament heat id passed in.')
+    
+    tournamentHeat = models.TournamentHeat.get_by_id(int(id))
+    if not tournamentHeat: 
+        logging.info('No such tournament heat.')
+        return http.HttpResponseNotFound('No such tournament heat.')
+    
+    heatResult = tournamentHeat.jsonResult
+    heatResultDict = json.loads(heatResult)
+    
+    appNames = heatResultDict['appNames']
+    ids = heatResultDict['ids']
+    points = heatResultDict['points']
+    temp = heatResultDict['matchResults']
+    logging.warn('temp = %s', temp)
+
+    matchResults = []   
+    
+    headerRow = []
+    headerRow.append('App')
+    headerRow.append('Points')
+    
+    logging.warn('********** ids %s',ids)
+    for k in ids: #temp.keys(): 
+        headerRow.append(appNames[k]+' ('+str(k)+')') 
+    
+    matchResults.append(headerRow)
+    #ids = temp.keys()
+    
+    for i in ids:
+      row = []
+      row.append(appNames[i]+' ('+str(i)+')')
+      row.append(points[i])
+      dict = temp[i]
+      for k in ids:
+        result = None
+        if dict.has_key(k):
+          result = {'n':dict[k]}
+        else: result = '*'
+        row.append(result)
+      matchResults.append(row)
+        #for y in v:
+        #    row.append(y)
+        #matchResults.append(row)
+
+            
+    #Build result row dicts and insert into resultRowDict list
+    
+    #Create dictionary and render to template
+    return respond(request, None, 'heatresult', {'matchResults':matchResults,'heatResult':heatResult,'appNames':appNames})
+
+def check_app(request, id=None):
+    app = None
+    if not id:
+        logging.info('Please pass in an app ID')
+        return http.HttpResponseNotFound('No app id passed in.')
+    
+    app = models.App.get_by_id(int(id))
+    if not app: 
+        logging.info('No such app.')
+        return http.HttpResponseNotFound('No such app.')
+    
+    message = 'Preparing to check app <br> '
+    game_status_result = None
+    get_next_move_result = None
+    board = 'X**\n***\n***'
+    try:
+        game_status_result = fetch_from_url(app.url+'/game_status', {'board':board})
+        message += 'Result from /game_status was '+str(game_status_result)+'<br>'
+    except:
+        e = sys.exc_info()[1]
+        message += 'Received an error from /game_status '+str(e)+'<br>'
+    
+    try:
+        get_next_move_result = fetch_from_url(app.url+'/get_next_move', {'board':board})
+        message += 'Result from /get_next_move was '+str(get_next_move_result)+'<br>'
+    except:
+        e = sys.exc_info()[1]
+        message += 'Received an error from /get_next_move '+str(e)+'<br>'
+             
+    #return http.HttpResponseNotFound(message)
+    #Create dictionary and render to template
+    return respond(request, None, 'check_app', { 'app':app,'game_status_result':game_status_result, 'get_next_move_result':get_next_move_result})
+
+      
+    
 def fetch_from_url(url, jsonRequestDict):
-    logging.info('Checking an app')
+    logging.debug('Checking an app')
        
     requestJSON = json.dumps(jsonRequestDict)
     params = urllib.urlencode({'jsonrequest': requestJSON})
@@ -153,7 +243,7 @@ def fetch_from_url(url, jsonRequestDict):
     jsonresponse = ''
     request_time = datetime.datetime.now()
     response_time = datetime.datetime.now()
-    logging.warn('fetching from '+url)
+    logging.debug('fetching from '+url)
     try:
         deadline = 5
         result = urlfetch.fetch(url=url,
@@ -166,7 +256,7 @@ def fetch_from_url(url, jsonRequestDict):
         delta = response_time - request_time
         microseconds = delta.seconds * 1000000 + delta.microseconds
         jsonresponse = result.content
-        logging.info('url returned json '+jsonresponse)
+        logging.debug('url returned json '+jsonresponse)
         return json.loads(jsonresponse)
     
     except:
@@ -179,11 +269,8 @@ def urls_head_to_head(playerX, playerO, referee,log=False):
         #player = {'X':'http://localhost:8080/tictactoe', 'O': 'http://localhost:8080/tictactoe'}
         #referee = 'http://localhost:8080/tictactoe'
         
-        logging.warn('***************')      
         result = fetch_from_url(referee+'/get_new_board', {})
-        logging.warn(result)
-    
-        
+        logging.debug(result)
         board = result['board']
               
         moves = []
@@ -191,21 +278,18 @@ def urls_head_to_head(playerX, playerO, referee,log=False):
             if log==True: 
                 logging.info(board)
     
-            logging.warn('@@@@@@@@@@@@@@@@@')        
             result = fetch_from_url(referee+'/game_status', {'board':board})
-            logging.warn(result)
+            logging.debug(result)
             turn = result['turn']
             
             result = fetch_from_url(player[turn]+'/get_next_move', {'board':board})
-            logging.warn('@@@@@@@@@@@@@@@@@')
-            logging.warn(result)
+            logging.debug(result)
             
             move = result['move']
             moves.append(move)
 
             result = fetch_from_url(referee+'/game_status', {'board':move})
-            logging.warn('************')
-            logging.warn(result)
+            logging.debug(result)
 
             status = result
             if status['status']!='PLAYING':
@@ -253,47 +337,78 @@ def live_run_tournament_heat(request, id=None):
     #players = ['http://localhost:8080/tictactoe', 'http://localhost:8080/tictactoe','http://localhost:8080/tictactoe', 'http://localhost:8080/tictactoe']
     
     apps = models.App.all()
-    players = []
+    appNames = {}
+    
+    players = {}
+    referee = None
     for app in apps: 
-        players.append(app.url)
+        players[app.key().id()] = app.url
+        if not referee: referee = app.url
+        
+        appNames[app.key().id()] = app.name
     
     if len(players)<2: 
         return http.HttpResponseNotFound('Less than 2 apps registered.') 
-    
-    referee = players[0]
     
     #players = [TicTacToe(), CenterGrabTicTacToe(), RandomTicTacToe(),CenterGrabRandomTicTacToe(),BottomUpTicTacToe(), HunterTicTacToe()]
         
     points = {}
     losses = {}
-    logging.warn('***************** len(players)=%s',len(players))
-    for i in range(len(players)): 
-        points[i]=0
-        losses[i]=0
+    matchResults = {}
+    
+    #Change this to use App ID's and remove need for player list
+    for app in apps: 
+        app_id = app.key().id()
+        points[app_id]=0
+        losses[app_id]=0
+        matchResults[app_id] = {}
         
-    for x in range(len(players)):
-        for y in range(len(players)):
+    for appX in apps:
+        for appY in apps:
+            x = appX.key().id()
+            y = appY.key().id()
             if x!=y:
                 #result = self.head_to_head(players[x], players[y], TicTacToe())
                 result = urls_head_to_head(players[x], players[y], referee)
+                
                 if 'X' in result: 
                     points[x]+=1
                     losses[y]+=1
+                    matchResults[x][y] = 1
                 elif 'O' in result: 
                     points[y]+=1
-                    losses[x]+=1 
+                    losses[x]+=1
+                    matchResults[x][y] = -1 
                 else:
                     points[x]+=0.5
                     points[y]+=0.5
+                    matchResults[x][y] = 0.5
         
         #print '\n'
         #for k in points: 
         #  print k, 'scored', points[k], 'points', losses[k],'losses',players[k].get_name()
-    tournamentHeat.jsonResult = json.dumps(points)
+
+        #sorted_list.sort(key=lambda x: x[0]) # sort by key
+        #appIDs = []
+        appIDs = [x for x in points.iteritems()] 
+        appIDs.sort(key=lambda x: x[1]) # sort by value
+        appIDs.reverse()
+
+        ids = []
+        for id in appIDs: ids.append(str(id[0]))
+        #logging.warn('******* sorted appIDs %s', appIDs)
+        
+    result = {'points':points,
+              'losses':losses,
+              'appNames':appNames,
+              'matchResults':matchResults,
+              'ids':ids}
+    
+    tournamentHeat.jsonResult = json.dumps(result)
     tournamentHeat.finished = True
     tournamentHeat.put()
     
-    return http.HttpResponse(json.dumps(points))             
+    return http.HttpResponse(json.dumps(result))             
     #Update the view to list supported and unsupported interfaces.
     #return respond(request,None,'tournamentresult', {'results':results})
 

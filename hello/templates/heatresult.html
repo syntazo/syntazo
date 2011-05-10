@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+  <head>
+    <title>Hello - Example django application with RPX login.</title>
+    <link rel="stylesheet" href="/static/main.css" type="text/css">  
+  </head>
+  <body>
+    <div id="login">
+      <br />
+      {% if user %}
+      You are signed in with ID <strong>{{ user.user_id }}</strong>, email: <strong>{{ user.email }}</strong>. <a href="{{ sign_out }}">Sign out.</a>
+      {% else %}
+      You are not signed in. <a class="rpxnow" onclick="return false;"
+href="https://pivotalexpert1.rpxnow.com/openid/v2/signin?token_url=http%3A%2F%2Fpivotalexpert1.appspot.com%2Frpx.php"> Sign In </a>
+      <br>
+     {% endif %}
+         </div>
+         
+<br>
+Every app in the tournament plays against every other app. Apps do not play against themselves. <br>
+The app on the left played X against the app on the top that played O. <br>
+X Won = 1<br>
+O Won = -1<br>
+Tie = 0.5 <br> 
+<br>
+ 
+ <table class="apps" cellspacing="0" width="900">
+  
+{% for l in matchResults %}
+   
+  <tr>
+   {% for y in l %} 
+  	  <td align="center"> 
+  	    {% if y.n %}
+  	      {{y.n}}
+  	    {% else %}
+  	      <b>{{y}}</b>
+  	    {% endif %}
+  	     
+  	  </td>
+   {% endfor %}  
+  </tr>
+{% endfor %}  
+
+</table>
+ <br>
+ 
+    <div id="footer" style="height:50px; text-align:center;">
+      <em>(Powered by Python 2.5 and Google App Engine)</em>
+    </div>
+    <script type="text/javascript">
+      var rpxJsHost = (("https:" == document.location.protocol) ? "https://" : "http://static.");
+      document.write(unescape("%3Cscript src='" + rpxJsHost +
+    "rpxnow.com/js/lib/rpx.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+      RPXNOW.overlay = true;
+      RPXNOW.language_preference = 'en';
+    </script>
+  </body>
+</html>

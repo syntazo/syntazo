@@ -5,7 +5,7 @@
     
     
     <meta http-equiv='X-UA-Compatible' content='IE=emulateIE7' />
-    <title>Coverage for hello/models: 91%</title>
+    <title>Coverage for hello/models: 87%</title>
     <link rel='stylesheet' href='style.css' type='text/css'>
     <script type='text/javascript' src='jquery-1.3.2.min.js'></script>
     <script type='text/javascript' src='coverage_html.js'></script>
@@ -18,12 +18,12 @@
 <div id='header'>
     <div class='content'>
         <h1>Coverage for <b>hello/models</b> :
-            <span class='pc_cov'>91%</span>
+            <span class='pc_cov'>87%</span>
         </h1>
         <h2 class='stats'>
-            64 statements
-            <span class='run hide_run' onclick='toggle_lines(this, "run")'>58 run</span>
-            <span class='mis' onclick='toggle_lines(this, "mis")'>6 missing</span>
+            78 statements
+            <span class='run hide_run' onclick='toggle_lines(this, "run")'>68 run</span>
+            <span class='mis' onclick='toggle_lines(this, "mis")'>10 missing</span>
             <span class='exc' onclick='toggle_lines(this, "exc")'>0 excluded</span>
             
         </h2>
@@ -121,6 +121,27 @@
 <p id='n85' class='pln'><a href='#n85'>85</a></p>
 <p id='n86' class='stm mis'><a href='#n86'>86</a></p>
 <p id='n87' class='stm mis'><a href='#n87'>87</a></p>
+<p id='n88' class='pln'><a href='#n88'>88</a></p>
+<p id='n89' class='stm run hide_run'><a href='#n89'>89</a></p>
+<p id='n90' class='stm run hide_run'><a href='#n90'>90</a></p>
+<p id='n91' class='stm run hide_run'><a href='#n91'>91</a></p>
+<p id='n92' class='pln'><a href='#n92'>92</a></p>
+<p id='n93' class='stm run hide_run'><a href='#n93'>93</a></p>
+<p id='n94' class='pln'><a href='#n94'>94</a></p>
+<p id='n95' class='stm mis'><a href='#n95'>95</a></p>
+<p id='n96' class='stm mis'><a href='#n96'>96</a></p>
+<p id='n97' class='pln'><a href='#n97'>97</a></p>
+<p id='n98' class='stm run hide_run'><a href='#n98'>98</a></p>
+<p id='n99' class='stm run hide_run'><a href='#n99'>99</a></p>
+<p id='n100' class='stm run hide_run'><a href='#n100'>100</a></p>
+<p id='n101' class='stm run hide_run'><a href='#n101'>101</a></p>
+<p id='n102' class='stm run hide_run'><a href='#n102'>102</a></p>
+<p id='n103' class='pln'><a href='#n103'>103</a></p>
+<p id='n104' class='stm run hide_run'><a href='#n104'>104</a></p>
+<p id='n105' class='pln'><a href='#n105'>105</a></p>
+<p id='n106' class='stm mis'><a href='#n106'>106</a></p>
+<p id='n107' class='stm mis'><a href='#n107'>107</a></p>
+<p id='n108' class='pln'><a href='#n108'>108</a></p>
                 
             </td>
             <td class='text' valign='top'>
@@ -211,6 +232,27 @@
 <p id='t85' class='pln'>&nbsp; &nbsp; <span class='key'>def</span> <span class='nam'>add_course</span><span class='op'>(</span><span class='nam'>name</span><span class='op'>,</span> <span class='nam'>user</span><span class='op'>)</span><span class='op'>:</span><span class='strut'>&nbsp;</span></p>
 <p id='t86' class='stm mis'>&nbsp; &nbsp; &nbsp; &nbsp; <span class='nam'>newCourse</span> <span class='op'>=</span> <span class='nam'>Course</span><span class='op'>(</span><span class='nam'>name</span><span class='op'>=</span><span class='nam'>name</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
 <p id='t87' class='stm mis'>&nbsp; &nbsp; &nbsp; &nbsp; <span class='nam'>newCourse</span><span class='op'>.</span><span class='nam'>put</span><span class='op'>(</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t88' class='pln'><span class='strut'>&nbsp;</span></p>
+<p id='t89' class='stm run hide_run'><span class='key'>class</span> <span class='nam'>App</span><span class='op'>(</span><span class='nam'>db</span><span class='op'>.</span><span class='nam'>Model</span><span class='op'>)</span><span class='op'>:</span><span class='strut'>&nbsp;</span></p>
+<p id='t90' class='stm run hide_run'>&nbsp; &nbsp; <span class='nam'>name</span> <span class='op'>=</span> <span class='nam'>db</span><span class='op'>.</span><span class='nam'>StringProperty</span><span class='op'>(</span><span class='nam'>required</span><span class='op'>=</span><span class='nam'>True</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t91' class='stm run hide_run'>&nbsp; &nbsp; <span class='nam'>url</span> <span class='op'>=</span> <span class='nam'>db</span><span class='op'>.</span><span class='nam'>StringProperty</span><span class='op'>(</span><span class='nam'>required</span><span class='op'>=</span><span class='nam'>True</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t92' class='pln'><span class='strut'>&nbsp;</span></p>
+<p id='t93' class='stm run hide_run'>&nbsp; &nbsp; <span class='op'>@</span><span class='nam'>staticmethod</span><span class='strut'>&nbsp;</span></p>
+<p id='t94' class='pln'>&nbsp; &nbsp; <span class='key'>def</span> <span class='nam'>add_app</span><span class='op'>(</span><span class='nam'>name</span><span class='op'>,</span> <span class='nam'>user</span><span class='op'>,</span> <span class='nam'>url</span><span class='op'>)</span><span class='op'>:</span><span class='strut'>&nbsp;</span></p>
+<p id='t95' class='stm mis'>&nbsp; &nbsp; &nbsp; &nbsp; <span class='nam'>newApp</span> <span class='op'>=</span> <span class='nam'>App</span><span class='op'>(</span><span class='nam'>name</span><span class='op'>=</span><span class='nam'>name</span><span class='op'>,</span> <span class='nam'>url</span><span class='op'>=</span><span class='nam'>url</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t96' class='stm mis'>&nbsp; &nbsp; &nbsp; &nbsp; <span class='nam'>newApp</span><span class='op'>.</span><span class='nam'>put</span><span class='op'>(</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t97' class='pln'><span class='strut'>&nbsp;</span></p>
+<p id='t98' class='stm run hide_run'><span class='key'>class</span> <span class='nam'>TournamentHeat</span><span class='op'>(</span><span class='nam'>db</span><span class='op'>.</span><span class='nam'>Model</span><span class='op'>)</span><span class='op'>:</span><span class='strut'>&nbsp;</span></p>
+<p id='t99' class='stm run hide_run'>&nbsp; &nbsp; <span class='nam'>name</span> <span class='op'>=</span> <span class='nam'>db</span><span class='op'>.</span><span class='nam'>StringProperty</span><span class='op'>(</span><span class='nam'>required</span><span class='op'>=</span><span class='nam'>True</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t100' class='stm run hide_run'>&nbsp; &nbsp; <span class='nam'>finished</span> <span class='op'>=</span> <span class='nam'>db</span><span class='op'>.</span><span class='nam'>BooleanProperty</span><span class='op'>(</span><span class='nam'>default</span><span class='op'>=</span><span class='nam'>False</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t101' class='stm run hide_run'>&nbsp; &nbsp; <span class='nam'>created</span> <span class='op'>=</span> <span class='nam'>db</span><span class='op'>.</span><span class='nam'>DateTimeProperty</span><span class='op'>(</span><span class='nam'>auto_now_add</span><span class='op'>=</span><span class='nam'>True</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t102' class='stm run hide_run'>&nbsp; &nbsp; <span class='nam'>jsonResult</span> <span class='op'>=</span> <span class='nam'>db</span><span class='op'>.</span><span class='nam'>TextProperty</span><span class='op'>(</span><span class='nam'>required</span><span class='op'>=</span><span class='nam'>False</span><span class='op'>,</span><span class='nam'>default</span><span class='op'>=</span><span class='nam'>None</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t103' class='pln'><span class='strut'>&nbsp;</span></p>
+<p id='t104' class='stm run hide_run'>&nbsp; &nbsp; <span class='op'>@</span><span class='nam'>staticmethod</span><span class='strut'>&nbsp;</span></p>
+<p id='t105' class='pln'>&nbsp; &nbsp; <span class='key'>def</span> <span class='nam'>add_tournament_heat</span><span class='op'>(</span><span class='nam'>name</span><span class='op'>)</span><span class='op'>:</span><span class='strut'>&nbsp;</span></p>
+<p id='t106' class='stm mis'>&nbsp; &nbsp; &nbsp; &nbsp; <span class='nam'>newHeat</span> <span class='op'>=</span> <span class='nam'>TournamentHeat</span><span class='op'>(</span><span class='nam'>name</span><span class='op'>=</span><span class='nam'>name</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t107' class='stm mis'>&nbsp; &nbsp; &nbsp; &nbsp; <span class='nam'>newHeat</span><span class='op'>.</span><span class='nam'>put</span><span class='op'>(</span><span class='op'>)</span><span class='strut'>&nbsp;</span></p>
+<p id='t108' class='pln'><span class='strut'>&nbsp;</span></p>
                 
             </td>
         </tr>

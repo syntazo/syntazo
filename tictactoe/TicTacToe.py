@@ -129,7 +129,24 @@ class TicTacToe():
         
         return {'move':move,
                 'start':board}
-
+    
+    @staticmethod      
+    def head_to_head(playerX, playerO, referee,log=False):
+        player = {'X':playerX, 'O': playerO}
+        board = referee.get_new_board()['board']
+        moves = []
+        for i in range(9):
+            if log==True: print board + '\n'
+            turn = referee.game_status(board)['turn']
+            move = player[turn].get_next_move(board)['move']
+            moves.append(move)
+            status = referee.game_status(move)
+            #self.assertEqual(True, referee.is_move_valid(board, move)['valid'])
+            if status['status']!='PLAYING':
+              #print '\n'+status['status']
+              return status['status']
+            board = move
+        return 'Nothing returned'
 
 class BottomUpTicTacToe(TicTacToe):
   name = "BottomUpTicTacToe"
@@ -204,144 +221,3 @@ class HunterTicTacToe(TicTacToe):
     elif board[5]==board[2]!='*' and board[8]=='*': index = 8
     return board[:index]+turn+board[index+1:]
     
-class Test_Models(unittest.TestCase):
-
-    def setUp(self):
-        pass
-    def tearDown(self):
-        pass
-        
-    def test_is_board_valid(self): 
-        board = 'X**\n***\n**'
-        self.assertEqual(False, TicTacToe.is_board_valid(board)['valid'],'Board is too short')
-        board = 'X**\n***\n****'
-        self.assertEqual(False, TicTacToe.is_board_valid(board)['valid'],'Board is too long')
-        board = 'X**\n*******'
-        self.assertEqual(False, TicTacToe.is_board_valid(board)['valid'],'Board does not have 2 carriage returns')
-        board = 'X**\n***\n*G*'
-        self.assertEqual(False, TicTacToe.is_board_valid(board)['valid'], 'Non-valid character \n'+board)
-        board = 'X**\n***\n***'
-        self.assertEqual(True, TicTacToe.is_board_valid(board)['valid'], 'Should be valid \n'+board+' \n'+TicTacToe.is_board_valid(board)['message'])
-
-    def test_game_status(self):
-        board = '***\n***\n***'
-        result = TicTacToe.game_status(board)
-        self.assertEqual('X', result['turn'], "Should be X's turn. \n"+board+" \n"+str(result))
-        self.assertEqual('PLAYING', result['status'], "Should be plaing game.\n"+board+" \n"+str(result))
-        
-        board = 'X**\n***\n***'
-        result = TicTacToe.game_status(board)
-        self.assertEqual('O', result['turn'], "Should be O's turn. \n"+board+" \n"+str(result))
-        self.assertEqual('PLAYING', result['status'], "Should be plaing game.\n"+board+" \n"+str(result))
-        
-        board = 'XOX\nXOO\nOXX'
-        result = TicTacToe.game_status(board)
-        self.assertEqual('O', result['turn'], "Should be O's turn. \n"+board+" \n"+str(result))
-        self.assertEqual('TIE', result['status'], "Should be a tie.\n"+board+" \n"+str(result))
-        
-        board = 'XXX\nXOO\nOXO'
-        result = TicTacToe.game_status(board)
-        self.assertEqual('O', result['turn'], "Should be O's turn. \n"+board+" \n"+str(result))
-        self.assertEqual('X WON', result['status'], "Should be X WON.\n"+board+" \n"+str(result))
- 
-        board = 'X**\nXOO\nX**'
-        result = TicTacToe.game_status(board)
-        self.assertEqual('O', result['turn'], "Should be O's turn. \n"+board+" \n"+str(result))
-        self.assertEqual('X WON', result['status'], "Should be X WON.\n"+board+" \n"+str(result))
-        
-        board = 'XOX\nXO*\n*O*'
-        result = TicTacToe.game_status(board)
-        self.assertEqual('X', result['turn'], "Should be X's turn. \n"+board+" \n"+str(result))
-        self.assertEqual('O WON', result['status'], "Should be O WON.\n"+board+" \n"+str(result))
-    
-    def test_is_move_valid(self):
-        start = '***\n***\n***'
-        move = 'X**\n***\n***'
-        result = TicTacToe.is_move_valid(start, move)
-        self.assertEqual(True, result['valid'], 'Move should be valid.')
-        
-        start = '***\n***\n***'
-        move = 'O**\n***\n***'
-        result = TicTacToe.is_move_valid(start, move)
-        self.assertEqual(False, result['valid'], 'O should not have more than X.')
-        
-        start = 'X**\n***\n***'
-        move = 'XO*\n***\n***'
-        result = TicTacToe.is_move_valid(start, move)
-        self.assertEqual(True, result['valid'], 'Move should be valid.')
-
-        start = 'X**\n***\n***'
-        move = '*OX\n***\n***'
-        result = TicTacToe.is_move_valid(start, move)
-        self.assertEqual(False, result['valid'], 'Move should fail since not based on start.')
- 
-        start = 'X**\n***\n***'
-        move = 'X**\n***\n***'
-        result = TicTacToe.is_move_valid(start, move)
-        self.assertEqual(False, result['valid'], 'Move should fail since no move made.')
-
-        start = 'X**\n***\n***'
-        move = 'XOX\n*O*\n***'
-        result = TicTacToe.is_move_valid(start, move)
-        self.assertEqual(False, result['valid'], 'Move should fail for multiple changes.')
-        
-    def test_get_next_move(self):
-        player = TicTacToe()
-        board = player.get_new_board()['board']
-        moves = []
-        for i in range(9):
-            #print board + '\n'
-            move = player.get_next_move(board)['move']
-            moves.append(move)
-            status = player.game_status(move)
-            self.assertEqual(True, player.is_move_valid(board, move)['valid'])
-            if status['status']!='PLAYING': 
-              break
-            board=move
-
-    def test_round_robin(self):
-        players = [TicTacToe(), CenterGrabTicTacToe(), RandomTicTacToe(),CenterGrabRandomTicTacToe(),BottomUpTicTacToe(), HunterTicTacToe()]
-        
-        points = {}
-        losses = {}
-        for i in range(len(players)): 
-          points[i]=0
-          losses[i]=0
-        
-        for x in range(len(players)):
-          for y in range(len(players)):
-            if x!=y:
-              result = self.head_to_head(players[x], players[y], TicTacToe())
-              if 'X' in result: 
-                points[x]+=1
-                losses[y]+=1
-              elif 'O' in result: 
-                points[y]+=1
-                losses[x]+=1 
-              else:
-                points[x]+=0.5
-                points[y]+=0.5
-        print '\n'
-        for k in points: 
-          print k, 'scored', points[k], 'points', losses[k],'losses',players[k].get_name()
-                    
-    def head_to_head(self,playerX, playerO, referee,log=False):
-        player = {'X':playerX, 'O': playerO}
-        board = referee.get_new_board()['board']
-        moves = []
-        for i in range(9):
-            if log==True: print board + '\n'
-            turn = referee.game_status(board)['turn']
-            move = player[turn].get_next_move(board)['move']
-            moves.append(move)
-            status = referee.game_status(move)
-            self.assertEqual(True, referee.is_move_valid(board, move)['valid'])
-            if status['status']!='PLAYING':
-              #print '\n'+status['status']
-              return status['status']
-            board = move
-        return 'Nothing returned'
-            
-if __name__ == "__main__":
-    #import sys;sys.argv = ['', 'Test.testName']
-    unittest.main()

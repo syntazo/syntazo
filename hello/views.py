@@ -374,15 +374,15 @@ def live_run_tournament_heat(request, id=None):
                 if 'X' in result: 
                     points[x]+=1
                     losses[y]+=1
-                    matchResults[x][y] = 1
+                    matchResults[x][y] = '1'
                 elif 'O' in result: 
                     points[y]+=1
                     losses[x]+=1
-                    matchResults[x][y] = -1 
+                    matchResults[x][y] = '-1' 
                 else:
                     points[x]+=0.5
                     points[y]+=0.5
-                    matchResults[x][y] = 0.5
+                    matchResults[x][y] = '0.5'
         
         #print '\n'
         #for k in points: 
@@ -402,6 +402,7 @@ def live_run_tournament_heat(request, id=None):
               'losses':losses,
               'appNames':appNames,
               'matchResults':matchResults,
+              'appIDs':appIDs,
               'ids':ids}
     
     tournamentHeat.jsonResult = json.dumps(result)

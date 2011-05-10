@@ -6,7 +6,7 @@ import urllib
 
 PORT = 8080
 APPNAME = '.'
-SOURCE_DIRECTORIES= 'hello'
+SOURCE_DIRECTORIES= 'hello,tictactoe'
 
 # To just launch the server without coverage
 #coverage_proc = subprocess.Popen(['/usr/local/bin/dev_appserver.py', '.',

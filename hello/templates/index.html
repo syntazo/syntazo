@@ -15,7 +15,43 @@ href="https://pivotalexpert1.rpxnow.com/openid/v2/signin?token_url=http%3A%2F%2F
       <br>
      {% endif %}
          </div>
-         
+
+      
+<table class="apps" cellspacing="0" width="900">
+  <tr style="color:#00ce1d;font-weight:bold;text-align:center">
+    <td>Tournament Heat</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td></td>
+  </tr>
+{% for th in tournamentHeats %}
+
+  <tr>
+  	<td> {{th.name }} </td>
+   
+    <td align="center">
+         {{th.finished}}
+    </td>
+	<td align="center">
+	    <a href="/edit_tournament_heat/{{th.key.id}}/"> Edit </a>
+    </td>
+	<td align="center">
+	    {{th.key.id}}
+    </td>
+    <td align="center">
+        <a href="/run_tournament_heat/{{th.key.id}}/"> Run tournament heat </a>
+    </td>
+    <td align="center">
+        <a href="/view_heat_result/{{th.key.id}}/"> View heat result </a>
+    </td>
+    <td align="center">
+        {{th.jsonResult}}
+    </td>
+
+  </tr>
+{% endfor %}
+</table>
+ 
+<br>
+<a href="/add_tournament_heat"> Add a tournament heat </a> 
+        
 <table class="players" cellspacing="0" width="900">
   <tr style="color:#00ce1d;font-weight:bold;text-align:center">
     <td>Course</td><td>TBD</td><td>TBD</td><td>TBD</td><td>TBD</td><td></td>
@@ -79,6 +115,8 @@ href="https://pivotalexpert1.rpxnow.com/openid/v2/signin?token_url=http%3A%2F%2F
     
 <br>
 <a class="addApp" href="/add_app"> Add an app </a>
+
+
 
     <div id="footer" style="height:50px; text-align:center;">
       <em>(Powered by Python 2.5 and Google App Engine)</em>

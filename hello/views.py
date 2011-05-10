@@ -28,7 +28,7 @@ from django.utils.http import urlencode as django_urlencode
 
 # Local imports
 import models
-from forms import CourseForm, AppForm
+from forms import CourseForm, AppForm, TournamentHeatForm
 import base64
 from myutil import common
 
@@ -104,7 +104,8 @@ def index(request):
   #  return auth_error(common.getHostURI(request))
   courses = models.Course.all()
   apps = models.App.all()
-  return respond(request, user, 'index', {'next': '/', 'courses':courses, 'apps':apps})
+  tournamentHeats = models.TournamentHeat.all()
+  return respond(request, user, 'index', {'next': '/', 'courses':courses, 'apps':apps, 'tournamentHeats':tournamentHeats})
   
 def add_course(request):
   #Fetch name parameter from GET request and create new course as an example
@@ -126,6 +127,22 @@ def add_app(request):
   models.App.add_app(name='New App', user=user, url='http://www.google.com')
   return http.HttpResponseRedirect('/')
   #return respond(request, user, 'index', {'next': '/', 'courses':courses, 'apps':apps})
+  
+def add_tournament_heat(request):
+  #Fetch name parameter from GET request and create new course as an example
+  logging.info('Adding a tournament heat.')
+
+  models.TournamentHeat.add_tournament_heat(name='New tournament heat')    
+  return http.HttpResponseRedirect('/')
+  
+def edit_app(request, id=None):
+    return edit_entity(request, id, c = models.App, useForm = AppForm)
+
+def edit_course(request, id=None):
+    return edit_entity(request, id, c = models.Course, useForm = CourseForm)
+
+def edit_tournament_heat(request, id=None):
+    return edit_entity(request, id, c = models.TournamentHeat, useForm = TournamentHeatForm)
 
 def fetch_from_url(url, jsonRequestDict):
     logging.info('Checking an app')
@@ -197,9 +214,41 @@ def urls_head_to_head(playerX, playerO, referee,log=False):
             board = move
             
         return 'No result'
+
+def run_tournament_heat(request,id=None):
+    
+    tournamentHeat = None
+    if not id:
+        logging.info('Please pass in a tournament ID')
+        return http.HttpResponseNotFound('No tournament id passed in.')
+    
+    tournamentHeat = models.TournamentHeat.get_by_id(int(id))
+    if not tournamentHeat: 
+        logging.info('No such tournament heat.')
+        return http.HttpResponseNotFound('No such tournament heat.') 
+    
+    #Enqueue live_run_tournament_heat
+    taskqueue.add(url='/live_run_tournament_heat/'+str(id)+'/',
+                  queue_name='tournament-queue') 
+#                  params={'id': int(id)})
+    logging.info('Enqueued tournament heat '+str(id))
+    return http.HttpResponseNotFound('Enqueued tournament heat '+str(id)) 
+    
+#To be enqueued
+def live_run_tournament_heat(request, id=None):
+
+    tournamentHeat = None
+    if not id:
+        logging.info('Please pass in a tournament ID')
+        return http.HttpResponseNotFound('No tournament id passed in.')
+    
+    tournamentHeat = models.TournamentHeat.get_by_id(int(id))
+    if not tournamentHeat: 
+        logging.info('No such tournament heat.')
+        return http.HttpResponseNotFound('No such tournament heat.') 
+    
+    #return http.HttpResponseNotFound('Will process tournmanet heat with id '+str(id))
  
-def run_tournament(request):
-    apps = models.App.all()
     referee = 'http://localhost:8080/tictactoe'
     players = ['http://localhost:8080/tictactoe', 'http://localhost:8080/tictactoe','http://localhost:8080/tictactoe', 'http://localhost:8080/tictactoe']
     
@@ -230,15 +279,13 @@ def run_tournament(request):
         #print '\n'
         #for k in points: 
         #  print k, 'scored', points[k], 'points', losses[k],'losses',players[k].get_name()
+    tournamentHeat.jsonResult = json.dumps(points)
+    tournamentHeat.finished = True
+    tournamentHeat.put()
+    
     return http.HttpResponse(json.dumps(points))             
     #Update the view to list supported and unsupported interfaces.
     #return respond(request,None,'tournamentresult', {'results':results})
-
-def edit_app(request, id=None):
-    return edit_entity(request, id, c = models.App, useForm = AppForm)
-
-def edit_course(request, id=None):
-    return edit_entity(request, id, c = models.Course, useForm = CourseForm)
 
 def edit_entity(request, id=None, c = models.Course, useForm = CourseForm):
  

@@ -94,4 +94,16 @@ class App(db.Model):
     def add_app(name, user, url):
         newApp = App(name=name, url=url)
         newApp.put()
+
+class TournamentHeat(db.Model):
+    name = db.StringProperty(required=True)
+    finished = db.BooleanProperty(default=False)
+    created = db.DateTimeProperty(auto_now_add=True)
+    jsonResult = db.TextProperty(required=False,default=None)
+    
+    @staticmethod
+    def add_tournament_heat(name):
+        newHeat = TournamentHeat(name=name)
+        newHeat.put()
+
     

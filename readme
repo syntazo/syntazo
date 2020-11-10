@@ -1,5 +1,2 @@
-This is a starter application to build apps using python, django, janrain, and google app engine. 
+# SYNTAZO
 
-Todo: 
-- Add a valid Janrain id that allows access from localhost, 127.0.0.1, and *.appspot.com
-- Increase test coverage of hello app
